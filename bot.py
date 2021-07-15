@@ -4,6 +4,7 @@ from PIL import Image
 import pytesseract
 import grequests
 import requests
+import random
 import time
 import shutil
 import json
@@ -16,10 +17,16 @@ bot = commands.Bot(command_prefix= 'r')
 
 
 def lol(data):
-    name=data["data"][0]["username"]
-    lv=data["data"][0]["progressionStats"]["level"]
-    kd=data["data"][0]["genericStats"]["general"]["kd"]
-    return name, lv, kd
+    try:
+        name=data["data"][0]["username"]
+        lv=data["data"][0]["progressionStats"]["level"]
+        kd=data["data"][0]["genericStats"]["general"]["kd"]
+        return name, lv, kd
+    except:
+        name="ERROR"
+        lv="ERROR"
+        kd="ERROR"
+        return name, lv, kd  
 
 @bot.event
 async def on_ready():
@@ -40,14 +47,14 @@ async def img(ctx):
     else:
         if url[0:26] == "https://cdn.discordapp.com":
             r= requests.get(url,stream=True)
-            try:
-                imgid=uuid.uuid4()
-                image = imgid +".jpg"
-                with open(image,"wb") as f:
-                    print("save")
-                    shutil.copyfileobj(r.raw,f)
-            except:
-                await ctx.send("error and idk")
+#            try:
+            imgid=random.randint(1,100000)
+            image = str(imgid) +".jpg"
+            with open(image,"wb") as f:
+                print("save")
+                shutil.copyfileobj(r.raw,f)
+#            except:
+#                await ctx.send("error and idk")
     img = Image.open(image)
     text = pytesseract.image_to_string(img)
     splittext=text.split("\n")
@@ -95,7 +102,7 @@ async def img(ctx):
         splittext[i]=splittext[i].replace(" ", "")
     links=[]
 
-
+    print(splittext)
     for page in splittext:
         links.append(f"https://r6stats.com/api/player-search/{page}/pc" )
 
