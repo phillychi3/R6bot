@@ -43,13 +43,13 @@ async def player(ctx,player):
     embed = discord.Embed(color=ctx.author.colour, timestamp=ctx.message.created_at)
     name, lv, kd=lol(r.json())
     embed.add_field(name=name, value=f"lv:{lv}  kd:{kd}",inline=False)
-
+    await ctx.send(embed=embed)
 
 @bot.command()
 async def invite(ctx):
     await ctx.send("https://discord.com/api/oauth2/authorize?client_id=865169125083709440&permissions=8&scope=bot")
-=======
-    await ctx.send(embed=embed)
+
+    
 
 
 @bot.command(aliases=['i'])
