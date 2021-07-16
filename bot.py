@@ -36,12 +36,23 @@ async def on_ready():
 async def ping(ctx):
     await ctx.send(F'{round(bot.latency*1000)} (ms)')
 
+@bot.command(aliases=['p'])
+async def player(ctx,player):
+    url=f"https://r6stats.com/api/player-search/{player}/pc"
+    r=requests.get(url)
+    embed = discord.Embed(color=ctx.author.colour, timestamp=ctx.message.created_at)
+    name, lv, kd=lol(r.json())
+    embed.add_field(name=name, value=f"lv:{lv}  kd:{kd}",inline=False)
+
 
 @bot.command()
 async def invite(ctx):
     await ctx.send("https://discord.com/api/oauth2/authorize?client_id=865169125083709440&permissions=8&scope=bot")
+=======
+    await ctx.send(embed=embed)
 
-@bot.command()
+
+@bot.command(aliases=['i'])
 async def img(ctx):
     try:
         url = ctx.message.attachments[0].url
