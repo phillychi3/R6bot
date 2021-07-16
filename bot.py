@@ -37,6 +37,9 @@ async def ping(ctx):
     await ctx.send(F'{round(bot.latency*1000)} (ms)')
 
 
+@bot.command()
+async def invite(ctx):
+    await ctx.send("https://discord.com/api/oauth2/authorize?client_id=865169125083709440&permissions=8&scope=bot")
 
 @bot.command()
 async def img(ctx):
