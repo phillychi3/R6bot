@@ -129,33 +129,36 @@ async def img(ctx):
 
     now = 0
     for r in response:
+        try:
 
-      embed=discord.Embed(title=f"**{splittext[now]}**",color=0x14b1ff)
-      soup = BeautifulSoup(response.text, "html.parser")
-      img=soup.find("div",class_="trn-profile-header__avatar trn-roundavatar trn-roundavatar--white")
-      img=img.find("img")
-      img=img.get("src")
-      season = soup.find("ul", class_="trn-card__header-tabs")
-      season = season.find("li", class_="trn-card__header-tab")
-      title[1]=season.text
-      embed.set_thumbnail(url=img)
-      soupln=soup.find_all("div",class_="trn-defstat__name")
-      soupl=soup.find_all("div",class_="trn-defstat__value-stylized")
-      for i in range(len(soupln)):
-        if soupln[i].string =="Level":
-            embed.add_field(name="LEVEL", value=soupl[i].string, inline=True)
-            break
-      sour=soup.find_all("div",class_="trn-defstats trn-defstats--width4  ")
-      sour=soup.find_all("div",class_="trn-defstats trn-defstats--width4")
-      for i in range(0,3):
-        embed.add_field(name=title[i], value="----------------", inline=False)
-        soup1=sour[i].find_all("div",class_="trn-defstat__name")
-        soup2=sour[i].find_all("div",class_="trn-defstat__value")
-        for j in range(len(soup1)):
-          embed.add_field(name=soup1[j].string, value=soup2[j].string, inline=True)
-      embed.set_footer(text="R6 system", icon_url="https://cdn.discordapp.com/attachments/865188878200733697/872390608801640458/wp5100705.png")
-      await ctx.send(embed=embed)
-      now+=1
+            embed=discord.Embed(title=f"**{splittext[now]}**",color=0x14b1ff)
+            soup = BeautifulSoup(r.text, "html.parser")
+            img=soup.find("div",class_="trn-profile-header__avatar trn-roundavatar trn-roundavatar--white")
+            img=img.find("img")
+            img=img.get("src")
+            season = soup.find("ul", class_="trn-card__header-tabs")
+            season = season.find("li", class_="trn-card__header-tab")
+            title[1]=season.text
+            embed.set_thumbnail(url=img)
+            soupln=soup.find_all("div",class_="trn-defstat__name")
+            soupl=soup.find_all("div",class_="trn-defstat__value-stylized")
+            for i in range(len(soupln)):
+              if soupln[i].string =="Level":
+                  embed.add_field(name="LEVEL", value=soupl[i].string, inline=True)
+                  break
+            sour=soup.find_all("div",class_="trn-defstats trn-defstats--width4  ")
+            sour=soup.find_all("div",class_="trn-defstats trn-defstats--width4")
+            for i in range(0,3):
+              embed.add_field(name=title[i], value="----------------", inline=False)
+              soup1=sour[i].find_all("div",class_="trn-defstat__name")
+              soup2=sour[i].find_all("div",class_="trn-defstat__value")
+              for j in range(len(soup1)):
+                embed.add_field(name=soup1[j].string, value=soup2[j].string, inline=True)
+            embed.set_footer(text="R6 system", icon_url="https://cdn.discordapp.com/attachments/865188878200733697/872390608801640458/wp5100705.png")
+            await ctx.send(embed=embed)
+            now+=1
+        except:
+            print("lol")
         
     os.remove(image)
 
@@ -187,4 +190,4 @@ async def servers(ctx):
 
     
     
-bot.run('ODY1MTY5MTI1MDgzNzA5NDQw.YPAFiQ.WyR9pTZouTNl2iaPYyuQ9gOehKc')
+bot.run('OTE5Mjc4OTQyMjY1OTUwMjU5.YbTfOw.0-FNKEe0SZ-iRvIgfJyjDNgNpS8')
