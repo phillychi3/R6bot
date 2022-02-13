@@ -10,10 +10,10 @@ from requests_toolbelt import user_agent
 # 美化 睡覺
 plt.style.use("cyberpunk")
 
-large_font = ImageFont.truetype('../GenWanMin-L.ttc', 40)
-font = ImageFont.truetype('../GenWanMin-L.ttc', 30)
-medium_font = ImageFont.truetype('../GenWanMin-L.ttc', 26) 
-small_font = ImageFont.truetype('../GenWanMin-L.ttc', 20)
+large_font = ImageFont.truetype('../setofont.ttf', 40)
+font = ImageFont.truetype('../setofont.ttf', 30)
+medium_font = ImageFont.truetype('../setofont.ttf', 26) 
+small_font = ImageFont.truetype('../setofont.ttf', 22)
 
 title=["Overall","Season 23","General"]
 im = Image.new('RGBA', (600, 1000), (44, 44, 44, 255))
@@ -79,8 +79,9 @@ sour=soup.find_all("div",class_="trn-defstats trn-defstats--width4  ")
 sour=soup.find_all("div",class_="trn-defstats trn-defstats--width4")
 pos = 300
 for i in range(0,3):
+    w, h = im_draw.textsize(title[i], font=font) 
+    im_draw.rectangle((0, pos, 600, pos+h+20), fill=(73,188,215,255), width=2)
     im_draw.line((0,pos,600,pos), fill=(255, 255, 255, 255), width=2)
-    w, h = im_draw.textsize(title[i], font=font)    
     im_draw.text(((600-w)/2,pos+10), title[i], font=font, fill=(255, 255, 255, 255))
     im_draw.line((0,pos+h+20,600,pos+h+20), fill=(255, 255, 255, 255), width=2)
     print(title[i])
