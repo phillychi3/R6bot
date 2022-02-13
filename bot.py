@@ -128,6 +128,9 @@ async def img(ctx):
 
 
     now = 0
+    #img
+
+
     for r in response:
         try:
 
